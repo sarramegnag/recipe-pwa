@@ -14,7 +14,9 @@ export default defineConfig({
         name: 'Recipe PWA',
         short_name: 'Recipes',
         description: 'A progressive web app for managing recipes',
+        start_url: '.',
         display: 'standalone',
+        background_color: '#ffffff',
         theme_color: '#ffffff',
         icons: [
           {
