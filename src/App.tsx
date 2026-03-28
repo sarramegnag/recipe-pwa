@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import './App.css'
 
 interface Recipe {
@@ -32,13 +33,30 @@ const recipes: Recipe[] = [
 ]
 
 function App() {
+  const [query, setQuery] = useState('')
+
+  const filtered = useMemo(() => {
+    const q = query.toLowerCase()
+    if (!q) return recipes
+    return recipes.filter(
+      (r) => r.title.toLowerCase().includes(q) || r.description.toLowerCase().includes(q),
+    )
+  }, [query])
+
   return (
     <div className="app">
       <header className="app-header">
         <h1>Recipes</h1>
+        <input
+          className="search-input"
+          type="search"
+          placeholder="Search recipes..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </header>
       <ul className="recipe-list">
-        {recipes.map((recipe) => (
+        {filtered.map((recipe) => (
           <li key={recipe.id} className="recipe-card">
             <span className="recipe-emoji">{recipe.emoji}</span>
             <div className="recipe-info">
