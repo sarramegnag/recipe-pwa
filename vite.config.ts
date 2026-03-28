@@ -5,6 +5,9 @@ import { VitePWA } from 'vite-plugin-pwa'
 // https://vite.dev/config/
 export default defineConfig({
   base: '/recipe-pwa/',
+  define: {
+    __COMMIT_HASH__: JSON.stringify(process.env.COMMIT_HASH || 'dev'),
+  },
   plugins: [
     react(),
     VitePWA({

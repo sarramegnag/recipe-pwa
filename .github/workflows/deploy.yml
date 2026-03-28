@@ -30,6 +30,8 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+        env:
+          COMMIT_HASH: ${{ github.sha }}
 
       - uses: actions/configure-pages@v5
 

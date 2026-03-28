@@ -112,3 +112,11 @@
   color: var(--text);
   white-space: nowrap;
 }
+
+.app-footer {
+  margin-top: auto;
+  padding: 16px 20px calc(env(safe-area-inset-bottom) + 16px);
+  text-align: center;
+  font-size: 13px;
+  color: var(--text);
+}

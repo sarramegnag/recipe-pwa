@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import './App.css'
 
+declare const __COMMIT_HASH__: string
+
 interface Recipe {
   id: number
   title: string
@@ -67,6 +69,7 @@ function App() {
           </li>
         ))}
       </ul>
+      <footer className="app-footer">v. {__COMMIT_HASH__.slice(0, 7)}</footer>
     </div>
   )
 }
