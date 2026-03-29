@@ -1,4 +1,5 @@
 import { API_URL } from './api'
+import { t } from './i18n'
 import type { Recipe } from './types'
 
 interface RecipeListProps {
@@ -13,17 +14,17 @@ export default function RecipeList({ recipes, loading, query, onQueryChange, onS
   return (
     <>
       <header className="app-header">
-        <h1>Recipes</h1>
+        <h1>{t('recipes')}</h1>
         <input
           className="search-input"
           type="search"
-          placeholder="Search recipes..."
+          placeholder={t('searchPlaceholder')}
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
         />
       </header>
       <ul className="recipe-list">
-        {loading && <li className="recipe-loading">Loading...</li>}
+        {loading && <li className="recipe-loading">{t('loading')}</li>}
         {recipes.map((recipe) => (
           <li key={recipe.id} className="recipe-card" onClick={() => onSelect(recipe.id)}>
             {recipe.image ? (
@@ -37,7 +38,7 @@ export default function RecipeList({ recipes, loading, query, onQueryChange, onS
             )}
             <div className="recipe-info">
               <h2>{recipe.title}</h2>
-              <p>{recipe.preparationTime + recipe.cookingTime} min · {recipe.servings} portions</p>
+              <p>{recipe.preparationTime + recipe.cookingTime} {t('min')} · {recipe.servings} {t('portions')}</p>
             </div>
           </li>
         ))}

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import './App.css'
 import { fetchRecipes, fetchRecipe } from './api'
+import { t } from './i18n'
 import type { Recipe, RecipeDetail } from './types'
 import RecipeList from './RecipeList'
 import RecipeDetailView from './RecipeDetailView'
@@ -49,7 +50,7 @@ function App() {
 
   let content
   if (detailLoading) {
-    content = <div className="recipe-loading">Loading...</div>
+    content = <div className="recipe-loading">{t('loading')}</div>
   } else if (selectedRecipe) {
     content = <RecipeDetailView recipe={selectedRecipe} onBack={closeRecipe} />
   } else {

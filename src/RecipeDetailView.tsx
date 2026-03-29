@@ -1,4 +1,5 @@
 import { API_URL } from './api'
+import { t } from './i18n'
 import type { RecipeDetail } from './types'
 
 interface RecipeDetailViewProps {
@@ -11,7 +12,7 @@ export default function RecipeDetailView({ recipe, onBack }: RecipeDetailViewPro
     <>
       <header className="detail-header">
         <button className="back-button" onClick={onBack}>
-          ← Back
+          {t('back')}
         </button>
       </header>
       {recipe.image ? (
@@ -27,17 +28,17 @@ export default function RecipeDetailView({ recipe, onBack }: RecipeDetailViewPro
         <h1 className="detail-title">{recipe.title}</h1>
         <div className="detail-meta">
           {recipe.preparationTime > 0 && (
-            <span>🔪 {recipe.preparationTime} min</span>
+            <span>🔪 {recipe.preparationTime} {t('min')}</span>
           )}
           {recipe.cookingTime > 0 && (
-            <span>🔥 {recipe.cookingTime} min</span>
+            <span>🔥 {recipe.cookingTime} {t('min')}</span>
           )}
-          <span>🍽️ {recipe.servings} portions</span>
+          <span>🍽️ {recipe.servings} {t('portions')}</span>
         </div>
 
         {recipe.recipeIngredients.length > 0 && (
           <section className="detail-section">
-            <h2>Ingrédients</h2>
+            <h2>{t('ingredients')}</h2>
             <ul className="ingredient-list">
               {recipe.recipeIngredients.map((ing) => (
                 <li key={ing.id}>
@@ -50,7 +51,7 @@ export default function RecipeDetailView({ recipe, onBack }: RecipeDetailViewPro
 
         {recipe.recipeSteps.length > 0 && (
           <section className="detail-section">
-            <h2>Étapes</h2>
+            <h2>{t('steps')}</h2>
             <ol className="step-list">
               {recipe.recipeSteps
                 .sort((a, b) => a.position - b.position)
