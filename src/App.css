@@ -133,7 +133,7 @@
 .back-button {
   background: none;
   border: none;
-  color: var(--accent);
+  color: var(--text-h);
   font-size: 16px;
   font-family: inherit;
   cursor: pointer;
