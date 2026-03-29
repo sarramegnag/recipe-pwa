@@ -92,7 +92,7 @@
 }
 
 .recipe-loading {
-  padding: 20px;
+  padding: calc(env(safe-area-inset-top) + 20px) 20px 20px;
   text-align: center;
   color: var(--text);
 }
