@@ -43,6 +43,11 @@
   color: var(--text);
 }
 
+.search-input::-webkit-search-cancel-button {
+  -webkit-appearance: searchfield-cancel-button;
+  cursor: pointer;
+}
+
 .recipe-list {
   list-style: none;
   margin: 0;
