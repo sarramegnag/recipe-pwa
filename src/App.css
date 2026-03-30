@@ -19,6 +19,30 @@
   letter-spacing: -0.5px;
 }
 
+.settings-fab {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom) + 20px);
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  transition: background 0.15s, color 0.15s;
+  z-index: 50;
+}
+
+.settings-fab:active {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
 .search-input {
   display: block;
   width: 100%;
@@ -220,4 +244,111 @@
   text-align: center;
   font-size: 13px;
   color: var(--text);
+}
+
+/* Settings panel */
+.settings-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  z-index: 100;
+}
+
+.settings-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.settings-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(320px, 85vw);
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.settings-panel.open {
+  transform: translateX(0);
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top) + 16px) 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-header h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.settings-close {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  line-height: 1;
+  transition: background 0.15s;
+}
+
+.settings-close:active {
+  background: var(--accent-bg);
+}
+
+.settings-body {
+  padding: 20px;
+}
+
+.settings-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.theme-picker {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.theme-option {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 14px;
+  font-family: inherit;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.theme-option:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+.theme-option.active {
+  background: var(--accent-bg);
+  color: var(--accent);
+  font-weight: 500;
 }

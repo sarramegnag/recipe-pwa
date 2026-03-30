@@ -7,6 +7,11 @@ const translations = {
   portions: 'portions',
   ingredients: 'Ingrédients',
   steps: 'Étapes',
+  settings: 'Paramètres',
+  appearance: 'Apparence',
+  themeSystem: 'Système',
+  themeLight: 'Clair',
+  themeDark: 'Sombre',
 } as const
 
 export type TranslationKey = keyof typeof translations
