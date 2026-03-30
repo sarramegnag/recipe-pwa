@@ -83,7 +83,6 @@ function App() {
   return (
     <div className="app">
       {content}
-      <footer className="app-footer">v. {__COMMIT_HASH__.slice(0, 7)}</footer>
       <button className="settings-fab" onClick={() => setSettingsOpen(true)} aria-label={t('settings')}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="3"/>
@@ -93,6 +92,7 @@ function App() {
       <SettingsPanel
         open={settingsOpen}
         theme={theme}
+        version={__COMMIT_HASH__.slice(0, 7)}
         onThemeChange={setTheme}
         onClose={() => setSettingsOpen(false)}
       />

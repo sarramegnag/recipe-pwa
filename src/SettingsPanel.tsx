@@ -5,6 +5,7 @@ export type Theme = 'system' | 'light' | 'dark'
 interface SettingsPanelProps {
   open: boolean
   theme: Theme
+  version: string
   onThemeChange: (theme: Theme) => void
   onClose: () => void
 }
@@ -15,7 +16,7 @@ const themes: { value: Theme; label: () => string }[] = [
   { value: 'dark', label: () => t('themeDark') },
 ]
 
-export default function SettingsPanel({ open, theme, onThemeChange, onClose }: SettingsPanelProps) {
+export default function SettingsPanel({ open, theme, version, onThemeChange, onClose }: SettingsPanelProps) {
   return (
     <>
       <div className={`settings-backdrop${open ? ' open' : ''}`} onClick={onClose} />
@@ -38,6 +39,7 @@ export default function SettingsPanel({ open, theme, onThemeChange, onClose }: S
             ))}
           </div>
         </div>
+        <footer className="settings-footer">v. {version}</footer>
       </aside>
     </>
   )
