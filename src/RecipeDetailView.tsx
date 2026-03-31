@@ -26,6 +26,7 @@ export default function RecipeDetailView({ recipe, onBack }: RecipeDetailViewPro
       )}
       <div className="detail-content">
         <h1 className="detail-title">{recipe.title}</h1>
+        <span className="detail-category">{recipe.category.name}</span>
         <div className="detail-meta">
           {recipe.preparationTime > 0 && (
             <span>🔪 {recipe.preparationTime} {t('min')}</span>

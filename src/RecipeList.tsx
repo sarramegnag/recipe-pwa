@@ -27,18 +27,21 @@ export default function RecipeList({ recipes, loading, query, onQueryChange, onS
         {loading && <li className="recipe-loading">{t('loading')}</li>}
         {recipes.map((recipe) => (
           <li key={recipe.id} className="recipe-card" onClick={() => onSelect(recipe.id)}>
-            {recipe.image ? (
-              <img
-                className="recipe-img"
-                src={`${API_URL}/${recipe.image.path}`}
-                alt={recipe.title}
-              />
-            ) : (
-              <span className="recipe-emoji">🍽️</span>
-            )}
+            <div className="recipe-img-wrap">
+              {recipe.image ? (
+                <img
+                  className="recipe-img"
+                  src={`${API_URL}/${recipe.image.path}`}
+                  alt={recipe.title}
+                />
+              ) : (
+                <span className="recipe-emoji">🍽️</span>
+              )}
+              <span className="recipe-category">{recipe.category.name}</span>
+            </div>
             <div className="recipe-info">
               <h2>{recipe.title}</h2>
-              <p>{recipe.preparationTime + recipe.cookingTime} {t('min')} · {recipe.servings} {t('portions')}</p>
+              <p>🔪 {recipe.preparationTime} {t('min')} · 🔥 {recipe.cookingTime} {t('min')} · 🍽️ {recipe.servings} {t('portions')}</p>
             </div>
           </li>
         ))}

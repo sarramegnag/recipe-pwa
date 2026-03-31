@@ -5,6 +5,7 @@ export interface Recipe {
   cookingTime: number
   servings: number
   image: { path: string } | null
+  category: { id: number; name: string }
   enabled: boolean
 }
 
