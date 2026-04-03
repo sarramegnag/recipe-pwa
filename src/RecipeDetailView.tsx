@@ -15,18 +15,20 @@ export default function RecipeDetailView({ recipe, onBack }: RecipeDetailViewPro
           {t('back')}
         </button>
       </header>
-      {recipe.image ? (
-        <img
-          className="detail-img"
-          src={`${API_URL}/${recipe.image.path}`}
-          alt={recipe.title}
-        />
-      ) : (
-        <div className="detail-emoji">🍽️</div>
-      )}
+      <div className="detail-img-wrap">
+        {recipe.image ? (
+          <img
+            className="detail-img"
+            src={`${API_URL}/${recipe.image.path}`}
+            alt={recipe.title}
+          />
+        ) : (
+          <div className="detail-emoji">🍽️</div>
+        )}
+        <span className="recipe-category">{recipe.category.name}</span>
+      </div>
       <div className="detail-content">
         <h1 className="detail-title">{recipe.title}</h1>
-        <span className="detail-category">{recipe.category.name}</span>
         <div className="detail-meta">
           {recipe.preparationTime > 0 && (
             <span>🔪 {recipe.preparationTime} {t('min')}</span>

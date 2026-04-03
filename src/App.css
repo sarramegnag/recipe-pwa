@@ -198,6 +198,16 @@
   background: var(--accent-bg);
 }
 
+.detail-img-wrap {
+  position: relative;
+}
+
+.detail-img-wrap .recipe-category {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
 .detail-img {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -219,17 +229,6 @@
   font-size: 24px;
   margin: 0 0 12px;
   letter-spacing: -0.5px;
-}
-
-.detail-category {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 500;
-  background: var(--accent-bg);
-  color: var(--accent);
-  padding: 4px 12px;
-  border-radius: 99px;
-  margin-bottom: 12px;
 }
 
 .detail-meta {
