@@ -1,0 +1,23 @@
+{
+  "id": 3,
+  "title": "Soupe à l'oignon",
+  "preparationTime": 15,
+  "cookingTime": 40,
+  "servings": 4,
+  "image": null,
+  "category": { "id": 3, "name": "Entrée" },
+  "enabled": true,
+  "recipeIngredients": [
+    { "id": 11, "quantity": "4", "ingredient": { "name": "Oignons" } },
+    { "id": 12, "quantity": "30", "unit": { "label": "g" }, "ingredient": { "name": "Beurre" } },
+    { "id": 13, "quantity": "1", "unit": { "label": "L" }, "ingredient": { "name": "Bouillon de bœuf" } },
+    { "id": 14, "quantity": "4", "unit": { "label": "tranches" }, "ingredient": { "name": "Pain" } },
+    { "id": 15, "quantity": "100", "unit": { "label": "g" }, "ingredient": { "name": "Gruyère râpé" } }
+  ],
+  "recipeSteps": [
+    { "id": 10, "position": 1, "description": "Émincer les oignons finement." },
+    { "id": 11, "position": 2, "description": "Les faire revenir dans le beurre à feu doux pendant 20 minutes." },
+    { "id": 12, "position": 3, "description": "Ajouter le bouillon et laisser mijoter 20 minutes." },
+    { "id": 13, "position": 4, "description": "Verser dans des bols, ajouter le pain et le gruyère, gratiner au four." }
+  ]
+}

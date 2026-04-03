@@ -5,11 +5,21 @@ export const API_URL = import.meta.env.VITE_API_URL || 'https://admin.sarramegna
 export function fetchRecipes(): Promise<Recipe[]> {
   return fetch(`${API_URL}/api/recipes`, {
     headers: { Accept: 'application/json' },
-  }).then((res) => res.json())
+  })
+    .then((res) => res.json())
+    .catch((e) => {
+      if (import.meta.env.DEV) return import('./mock-api').then((m) => m.fetchRecipes())
+      throw e
+    })
 }
 
 export function fetchRecipe(id: number): Promise<RecipeDetail> {
   return fetch(`${API_URL}/api/recipes/${id}`, {
     headers: { Accept: 'application/json' },
-  }).then((res) => res.json())
+  })
+    .then((res) => res.json())
+    .catch((e) => {
+      if (import.meta.env.DEV) return import('./mock-api').then((m) => m.fetchRecipe(id))
+      throw e
+    })
 }

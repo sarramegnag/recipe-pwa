@@ -1,0 +1,24 @@
+{
+  "id": 4,
+  "title": "Crêpes bretonnes",
+  "preparationTime": 10,
+  "cookingTime": 20,
+  "servings": 8,
+  "image": null,
+  "category": { "id": 2, "name": "Dessert" },
+  "enabled": true,
+  "recipeIngredients": [
+    { "id": 16, "quantity": "250", "unit": { "label": "g" }, "ingredient": { "name": "Farine" } },
+    { "id": 17, "quantity": "4", "ingredient": { "name": "Œufs" } },
+    { "id": 18, "quantity": "50", "unit": { "label": "cL" }, "ingredient": { "name": "Lait" } },
+    { "id": 19, "quantity": "30", "unit": { "label": "g" }, "ingredient": { "name": "Beurre fondu" } },
+    { "id": 20, "quantity": "1", "unit": { "label": "pincée" }, "ingredient": { "name": "Sel" } }
+  ],
+  "recipeSteps": [
+    { "id": 14, "position": 1, "description": "Mélanger la farine et les œufs." },
+    { "id": 15, "position": 2, "description": "Ajouter le lait progressivement en fouettant." },
+    { "id": 16, "position": 3, "description": "Incorporer le beurre fondu et le sel." },
+    { "id": 17, "position": 4, "description": "Laisser reposer 1 heure au réfrigérateur." },
+    { "id": 18, "position": 5, "description": "Cuire les crêpes dans une poêle chaude beurrée." }
+  ]
+}

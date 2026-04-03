@@ -1,0 +1,23 @@
+{
+  "id": 1,
+  "title": "Poulet rôti aux herbes",
+  "preparationTime": 20,
+  "cookingTime": 60,
+  "servings": 4,
+  "image": null,
+  "category": { "id": 1, "name": "Plat" },
+  "enabled": true,
+  "recipeIngredients": [
+    { "id": 1, "quantity": "1", "ingredient": { "name": "Poulet entier" } },
+    { "id": 2, "quantity": "3", "unit": { "label": "cuillères à soupe" }, "ingredient": { "name": "Huile d'olive" } },
+    { "id": 3, "quantity": "4", "unit": { "label": "gousses" }, "ingredient": { "name": "Ail" } },
+    { "id": 4, "quantity": "2", "unit": { "label": "branches" }, "ingredient": { "name": "Thym" } },
+    { "id": 5, "quantity": "2", "unit": { "label": "branches" }, "ingredient": { "name": "Romarin" } }
+  ],
+  "recipeSteps": [
+    { "id": 1, "position": 1, "description": "Préchauffer le four à 200°C." },
+    { "id": 2, "position": 2, "description": "Frotter le poulet avec l'huile d'olive, l'ail écrasé et les herbes." },
+    { "id": 3, "position": 3, "description": "Saler et poivrer généreusement." },
+    { "id": 4, "position": 4, "description": "Enfourner et cuire pendant 1 heure en arrosant régulièrement." }
+  ]
+}

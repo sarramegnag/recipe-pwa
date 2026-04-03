@@ -1,0 +1,24 @@
+{
+  "id": 2,
+  "title": "Tarte aux pommes",
+  "preparationTime": 30,
+  "cookingTime": 45,
+  "servings": 6,
+  "image": null,
+  "category": { "id": 2, "name": "Dessert" },
+  "enabled": true,
+  "recipeIngredients": [
+    { "id": 6, "quantity": "1", "ingredient": { "name": "Pâte brisée" } },
+    { "id": 7, "quantity": "5", "ingredient": { "name": "Pommes" } },
+    { "id": 8, "quantity": "80", "unit": { "label": "g" }, "ingredient": { "name": "Sucre" } },
+    { "id": 9, "quantity": "30", "unit": { "label": "g" }, "ingredient": { "name": "Beurre" } },
+    { "id": 10, "quantity": "1", "unit": { "label": "sachet" }, "ingredient": { "name": "Sucre vanillé" } }
+  ],
+  "recipeSteps": [
+    { "id": 5, "position": 1, "description": "Préchauffer le four à 180°C." },
+    { "id": 6, "position": 2, "description": "Étaler la pâte dans un moule à tarte." },
+    { "id": 7, "position": 3, "description": "Éplucher et couper les pommes en lamelles fines." },
+    { "id": 8, "position": 4, "description": "Disposer les pommes sur la pâte, saupoudrer de sucre et ajouter des noisettes de beurre." },
+    { "id": 9, "position": 5, "description": "Cuire 45 minutes jusqu'à ce que les pommes soient dorées." }
+  ]
+}

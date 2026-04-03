@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Poulet rôti aux herbes",
+    "preparationTime": 20,
+    "cookingTime": 60,
+    "servings": 4,
+    "image": null,
+    "category": { "id": 1, "name": "Plat" },
+    "enabled": true
+  },
+  {
+    "id": 2,
+    "title": "Tarte aux pommes",
+    "preparationTime": 30,
+    "cookingTime": 45,
+    "servings": 6,
+    "image": null,
+    "category": { "id": 2, "name": "Dessert" },
+    "enabled": true
+  },
+  {
+    "id": 3,
+    "title": "Soupe à l'oignon",
+    "preparationTime": 15,
+    "cookingTime": 40,
+    "servings": 4,
+    "image": null,
+    "category": { "id": 3, "name": "Entrée" },
+    "enabled": true
+  },
+  {
+    "id": 4,
+    "title": "Crêpes bretonnes",
+    "preparationTime": 10,
+    "cookingTime": 20,
+    "servings": 8,
+    "image": null,
+    "category": { "id": 2, "name": "Dessert" },
+    "enabled": true
+  }
+]
