@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import './App.css'
 import { fetchRecipes, fetchRecipe } from './api'
+import type { SortOption } from './api'
 import { t } from './i18n'
 import type { Recipe, RecipeDetail } from './types'
 import RecipeList from './RecipeList'
@@ -17,6 +18,7 @@ function App() {
   const [selectedRecipe, setSelectedRecipe] = useState<RecipeDetail | null>(null)
   const [detailLoading, setDetailLoading] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const [sort, setSort] = useState<SortOption>(null)
   const [theme, setTheme] = useState<Theme>(() => {
     return (localStorage.getItem('theme') as Theme) || 'system'
   })
@@ -31,10 +33,14 @@ function App() {
   }, [theme])
 
   useEffect(() => {
-    fetchRecipes()
-      .then((data) => setRecipes(data))
-      .finally(() => setLoading(false))
-  }, [])
+    setLoading(true)
+    const timeout = setTimeout(() => {
+      fetchRecipes(query || undefined, sort)
+        .then((data) => setRecipes(data))
+        .finally(() => setLoading(false))
+    }, query ? 300 : 0)
+    return () => clearTimeout(timeout)
+  }, [query, sort])
 
   const openRecipe = useCallback((id: number) => {
     setDetailLoading(true)
@@ -57,12 +63,6 @@ function App() {
     return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
-  const filtered = useMemo(() => {
-    const q = query.toLowerCase()
-    if (!q) return recipes
-    return recipes.filter((r) => r.title.toLowerCase().includes(q))
-  }, [query, recipes])
-
   let content
   if (detailLoading) {
     content = <div className="recipe-loading">{t('loading')}</div>
@@ -71,10 +71,12 @@ function App() {
   } else {
     content = (
       <RecipeList
-        recipes={filtered}
+        recipes={recipes}
         loading={loading}
         query={query}
+        sort={sort}
         onQueryChange={setQuery}
+        onSortChange={setSort}
         onSelect={openRecipe}
       />
     )

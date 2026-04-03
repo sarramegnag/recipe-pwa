@@ -1,5 +1,5 @@
-import { API_URL } from './api'
 import { t } from './i18n'
+import RecipeImage from './RecipeImage'
 import type { RecipeDetail } from './types'
 
 interface RecipeDetailViewProps {
@@ -16,15 +16,7 @@ export default function RecipeDetailView({ recipe, onBack }: RecipeDetailViewPro
         </button>
       </header>
       <div className="detail-img-wrap">
-        {recipe.image ? (
-          <img
-            className="detail-img"
-            src={`${API_URL}/${recipe.image.path}`}
-            alt={recipe.title}
-          />
-        ) : (
-          <div className="detail-emoji">🍽️</div>
-        )}
+        <RecipeImage image={recipe.image} alt={recipe.title} className="detail-img" />
         <span className="recipe-category">{recipe.category.name}</span>
       </div>
       <div className="detail-content">
