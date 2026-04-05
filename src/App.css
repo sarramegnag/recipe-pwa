@@ -610,6 +610,7 @@
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  margin-top: 16px;
   margin-bottom: 8px;
 }
 
@@ -634,6 +635,59 @@
 
 .cook-ing-name {
   color: var(--text-h);
+}
+
+.cook-prep {
+  background: var(--accent-bg);
+}
+
+.cook-prep-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.cook-prep-icon {
+  color: var(--accent);
+}
+
+.cook-prep-title {
+  margin: 0;
+  font-size: 22px;
+  color: var(--text-h);
+}
+
+.cook-prep-subtitle {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.cook-sort-toggle {
+  display: flex;
+  gap: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+  align-self: center;
+}
+
+.cook-sort-btn {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+  border: none;
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.cook-sort-btn.active {
+  background: var(--accent);
+  color: #fff;
 }
 
 .cook-body {

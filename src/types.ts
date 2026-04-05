@@ -9,12 +9,22 @@ export interface Recipe {
   enabled: boolean
 }
 
+interface Ingredient {
+  id: number
+  name: string
+  category?: {
+    id: number
+    name: string
+  }
+}
+
 export interface RecipeDetail extends Recipe {
   recipeIngredients: {
     id: number
+    position: number
     quantity: string
     unit?: { label: string }
-    ingredient: { name: string }
+    ingredient: Ingredient
   }[]
   recipeSteps: {
     id: number
@@ -22,9 +32,10 @@ export interface RecipeDetail extends Recipe {
     description: string
     recipeStepIngredients: {
       id: number
+      position: number
       quantity: string
       unit?: { label: string }
-      ingredient: { name: string }
+      ingredient: Ingredient
     }[]
   }[]
 }
