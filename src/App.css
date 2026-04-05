@@ -647,6 +647,7 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 24px;
+  flex-shrink: 0;
 }
 
 .cook-prep-icon {
@@ -672,6 +673,7 @@
   border: 1px solid var(--border);
   margin-bottom: 16px;
   align-self: center;
+  flex-shrink: 0;
 }
 
 .cook-sort-btn {

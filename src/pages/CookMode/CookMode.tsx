@@ -29,9 +29,11 @@ export default function CookMode({ recipe, onClose, onDone }: CookModeProps) {
           ✕
         </button>
         <span className="cook-title">{recipe.title}</span>
-        <span className="cook-counter">
-          {current + 2} / {totalPages}
-        </span>
+        {!isIngredientsPage && (
+          <span className="cook-counter">
+            {current + 1} / {steps.length}
+          </span>
+        )}
       </header>
 
       {isIngredientsPage ? (
