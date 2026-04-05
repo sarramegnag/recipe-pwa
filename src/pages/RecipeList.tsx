@@ -1,8 +1,9 @@
 import { useRef, useState, useEffect } from 'react'
-import type { SortField, SortOption } from './api'
-import { t } from './i18n'
-import RecipeImage from './RecipeImage'
-import type { Recipe } from './types'
+import { API_URL } from '../api'
+import type { SortField, SortOption } from '../api'
+import { t } from '../i18n'
+import RecipeImage from '../components/RecipeImage'
+import type { Recipe } from '../types'
 
 const SORT_OPTIONS: { field: SortField; label: () => string }[] = [
   { field: 'title', label: () => t('sortTitle') },
@@ -96,7 +97,7 @@ export default function RecipeList({ recipes, loading, query, sort, onQueryChang
         {recipes.map((recipe) => (
           <li key={recipe.id} className="recipe-card" onClick={() => onSelect(recipe.id)}>
             <div className="recipe-img-wrap">
-              <RecipeImage image={recipe.image} alt={recipe.title} className="recipe-img" />
+              <RecipeImage src={recipe.image ? `${API_URL}/${recipe.image.path}` : null} alt={recipe.title} className="recipe-img" />
               <span className="recipe-category">{recipe.category.name}</span>
             </div>
             <div className="recipe-info">

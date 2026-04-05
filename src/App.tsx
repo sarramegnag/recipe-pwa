@@ -4,10 +4,8 @@ import { fetchRecipes, fetchRecipe } from './api'
 import type { SortOption } from './api'
 import { t } from './i18n'
 import type { Recipe, RecipeDetail } from './types'
-import RecipeList from './RecipeList'
-import RecipeDetailView from './RecipeDetailView'
-import SettingsPanel from './SettingsPanel'
-import type { Theme } from './SettingsPanel'
+import { RecipeList, RecipeDetailView, SettingsPanel } from './pages'
+import type { Theme } from './pages/SettingsPanel'
 
 declare const __COMMIT_HASH__: string
 

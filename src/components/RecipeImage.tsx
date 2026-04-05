@@ -1,14 +1,12 @@
-import { API_URL } from './api'
-
 interface RecipeImageProps {
-  image: { path: string } | null
+  src: string | null
   alt: string
   className: string
 }
 
-export default function RecipeImage({ image, alt, className }: RecipeImageProps) {
-  if (image) {
-    return <img className={className} src={`${API_URL}/${image.path}`} alt={alt} />
+export default function RecipeImage({ src, alt, className }: RecipeImageProps) {
+  if (src) {
+    return <img className={className} src={src} alt={alt} />
   }
   return (
     <div className="recipe-img-placeholder">

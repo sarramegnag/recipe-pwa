@@ -1,10 +1,11 @@
 import { useCallback, useState } from 'react'
-import Confetti from './Confetti'
-import CookIcon from './CookIcon'
+import Confetti from '../components/Confetti'
+import CookIcon from '../components/CookIcon'
 import CookMode from './CookMode'
-import { t } from './i18n'
-import RecipeImage from './RecipeImage'
-import type { RecipeDetail } from './types'
+import { API_URL } from '../api'
+import { t } from '../i18n'
+import RecipeImage from '../components/RecipeImage'
+import type { RecipeDetail } from '../types'
 
 interface RecipeDetailViewProps {
   recipe: RecipeDetail
@@ -37,7 +38,7 @@ export default function RecipeDetailView({ recipe, loading, onBack }: RecipeDeta
         </button>
       </header>
       <div className="detail-img-wrap">
-        <RecipeImage image={recipe.image} alt={recipe.title} className="detail-img" />
+        <RecipeImage src={recipe.image ? `${API_URL}/${recipe.image.path}` : null} alt={recipe.title} className="detail-img" />
         <span className="recipe-category">{recipe.category.name}</span>
       </div>
       <div className="detail-content">
