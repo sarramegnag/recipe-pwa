@@ -29,14 +29,17 @@ export default function RecipeDetailView({ recipe, loading, onBack }: RecipeDeta
   return (
     <>
       {showConfetti && <Confetti onDone={() => setShowConfetti(false)} />}
-      <header className="detail-header">
-        <button className="back-button" onClick={onBack}>
-          {t('back')}
-        </button>
-        <button className="cook-header-btn" onClick={() => setCooking(true)} disabled={recipe.recipeSteps.length === 0} aria-label={t('cookMode')}>
-          <CookIcon size={22} />
-        </button>
-      </header>
+      <div className="sticky-header-wrap">
+        <header className="detail-header">
+          <button className="back-button" onClick={onBack}>
+            {t('back')}
+          </button>
+          <button className="cook-header-btn" onClick={() => setCooking(true)} disabled={recipe.recipeSteps.length === 0} aria-label={t('cookMode')}>
+            <CookIcon size={22} />
+          </button>
+        </header>
+        {loading && <div className="loading-bar" />}
+      </div>
       <div className="detail-img-wrap">
         <RecipeImage src={recipe.image ? `${API_URL}/${recipe.image.path}` : null} alt={recipe.title} className="detail-img" />
         <span className="recipe-category">{recipe.category.name}</span>

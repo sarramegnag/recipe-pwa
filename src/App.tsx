@@ -82,11 +82,8 @@ function App() {
     )
   }
 
-  const isLoading = loading || (!!selectedPreview && !selectedRecipe)
-
   return (
     <div className="app">
-      {isLoading && <div className="loading-bar" />}
       {content}
       <button className="settings-fab" onClick={() => setSettingsOpen(true)} aria-label={t('settings')}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

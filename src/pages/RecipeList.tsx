@@ -51,6 +51,7 @@ export default function RecipeList({ recipes, loading, query, sort, onQueryChang
 
   return (
     <>
+      <div className="sticky-header-wrap">
       <header className="app-header">
         <h1>{t('recipes')}</h1>
         <div className="search-row">
@@ -90,6 +91,8 @@ export default function RecipeList({ recipes, loading, query, sort, onQueryChang
           </div>
         </div>
       </header>
+      {loading && <div className="loading-bar" />}
+      </div>
       {!loading && recipes.length === 0 && (
         <p className="recipe-empty">{t('noResults')}</p>
       )}
