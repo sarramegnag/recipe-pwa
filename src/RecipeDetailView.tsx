@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import Confetti from './Confetti'
 import CookIcon from './CookIcon'
 import CookMode from './CookMode'
 import { t } from './i18n'
@@ -13,13 +14,20 @@ interface RecipeDetailViewProps {
 
 export default function RecipeDetailView({ recipe, loading, onBack }: RecipeDetailViewProps) {
   const [cooking, setCooking] = useState(false)
+  const [showConfetti, setShowConfetti] = useState(false)
+
+  const handleDone = useCallback(() => {
+    setCooking(false)
+    setShowConfetti(true)
+  }, [])
 
   if (cooking) {
-    return <CookMode recipe={recipe} onClose={() => setCooking(false)} />
+    return <CookMode recipe={recipe} onClose={() => setCooking(false)} onDone={handleDone} />
   }
 
   return (
     <>
+      {showConfetti && <Confetti onDone={() => setShowConfetti(false)} />}
       <header className="detail-header">
         <button className="back-button" onClick={onBack}>
           {t('back')}

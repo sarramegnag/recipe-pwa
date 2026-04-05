@@ -6,9 +6,10 @@ import useWakeLock from './useWakeLock'
 interface CookModeProps {
   recipe: RecipeDetail
   onClose: () => void
+  onDone: () => void
 }
 
-export default function CookMode({ recipe, onClose }: CookModeProps) {
+export default function CookMode({ recipe, onClose, onDone }: CookModeProps) {
   const steps = recipe.recipeSteps
     .slice()
     .sort((a, b) => a.position - b.position)
@@ -62,7 +63,7 @@ export default function CookMode({ recipe, onClose }: CookModeProps) {
           {t('cookPrev')}
         </button>
         {isLastStep ? (
-          <button className="cook-nav primary" onClick={onClose}>
+          <button className="cook-nav primary" onClick={onDone}>
             {t('cookDone')}
           </button>
         ) : (
