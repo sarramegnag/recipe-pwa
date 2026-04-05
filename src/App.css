@@ -21,7 +21,7 @@
 
 .settings-fab {
   position: fixed;
-  bottom: calc(env(safe-area-inset-bottom) + 20px);
+  bottom: 20px;
   right: 20px;
   width: 48px;
   height: 48px;
@@ -393,7 +393,7 @@
 
 .app-footer {
   margin-top: auto;
-  padding: 16px 20px calc(env(safe-area-inset-bottom) + 16px);
+  padding: 16px 20px;
   text-align: center;
   font-size: 13px;
   color: var(--text);
@@ -654,7 +654,8 @@
 .cook-footer {
   display: flex;
   gap: 12px;
-  padding: 16px 16px calc(env(safe-area-inset-bottom) + 16px);
+  padding: 16px;
+  padding-bottom: 16px;
   border-top: 1px solid var(--border);
   flex-shrink: 0;
 }
