@@ -150,8 +150,12 @@
 }
 
 .loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
   height: 3px;
-  margin-bottom: -3px;
   background: var(--accent, #007aff);
   animation: loading-slide 1s ease-in-out infinite;
 }
@@ -295,6 +299,11 @@
 
 .cook-header-btn:active {
   opacity: 0.7;
+}
+
+.cook-header-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
 
 .back-button {

@@ -16,7 +16,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState('')
   const [selectedRecipe, setSelectedRecipe] = useState<RecipeDetail | null>(null)
-  const [detailLoading, setDetailLoading] = useState(false)
+  const [selectedPreview, setSelectedPreview] = useState<Recipe | null>(null)
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [sort, setSort] = useState<SortOption>(null)
   const [theme, setTheme] = useState<Theme>(() => {
@@ -43,31 +43,33 @@ function App() {
   }, [query, sort])
 
   const openRecipe = useCallback((id: number) => {
-    setDetailLoading(true)
+    const preview = recipes.find((r) => r.id === id)
+    if (preview) setSelectedPreview(preview)
     history.pushState({ recipeId: id }, '')
     fetchRecipe(id)
       .then((data) => setSelectedRecipe(data))
-      .finally(() => setDetailLoading(false))
-  }, [])
+  }, [recipes])
 
   const closeRecipe = useCallback(() => {
     history.back()
     setSelectedRecipe(null)
+    setSelectedPreview(null)
   }, [])
 
   useEffect(() => {
     const onPopState = () => {
       setSelectedRecipe(null)
+      setSelectedPreview(null)
     }
     window.addEventListener('popstate', onPopState)
     return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
+  const displayRecipe = selectedRecipe ?? (selectedPreview ? { ...selectedPreview, recipeIngredients: [], recipeSteps: [] } as RecipeDetail : null)
+
   let content
-  if (detailLoading) {
-    content = <div className="recipe-loading">{t('loading')}</div>
-  } else if (selectedRecipe) {
-    content = <RecipeDetailView recipe={selectedRecipe} onBack={closeRecipe} />
+  if (displayRecipe) {
+    content = <RecipeDetailView recipe={displayRecipe} loading={!selectedRecipe} onBack={closeRecipe} />
   } else {
     content = (
       <RecipeList
@@ -82,8 +84,11 @@ function App() {
     )
   }
 
+  const isLoading = loading || (!!selectedPreview && !selectedRecipe)
+
   return (
     <div className="app">
+      {isLoading && <div className="loading-bar" />}
       {content}
       <button className="settings-fab" onClick={() => setSettingsOpen(true)} aria-label={t('settings')}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

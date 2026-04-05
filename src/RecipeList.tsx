@@ -89,7 +89,6 @@ export default function RecipeList({ recipes, loading, query, sort, onQueryChang
           </div>
         </div>
       </header>
-      {loading && <div className="loading-bar" />}
       {!loading && recipes.length === 0 && (
         <p className="recipe-empty">{t('noResults')}</p>
       )}
