@@ -20,5 +20,11 @@ export interface RecipeDetail extends Recipe {
     id: number
     position: number
     description: string
+    recipeStepIngredients: {
+      id: number
+      quantity: string
+      unit?: { label: string }
+      ingredient: { name: string }
+    }[]
   }[]
 }

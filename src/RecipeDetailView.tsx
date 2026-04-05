@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import CookIcon from './CookIcon'
+import CookMode from './CookMode'
 import { t } from './i18n'
 import RecipeImage from './RecipeImage'
 import type { RecipeDetail } from './types'
@@ -8,12 +11,23 @@ interface RecipeDetailViewProps {
 }
 
 export default function RecipeDetailView({ recipe, onBack }: RecipeDetailViewProps) {
+  const [cooking, setCooking] = useState(false)
+
+  if (cooking) {
+    return <CookMode recipe={recipe} onClose={() => setCooking(false)} />
+  }
+
   return (
     <>
       <header className="detail-header">
         <button className="back-button" onClick={onBack}>
           {t('back')}
         </button>
+        {recipe.recipeSteps.length > 0 && (
+          <button className="cook-header-btn" onClick={() => setCooking(true)} aria-label={t('cookMode')}>
+            <CookIcon size={22} />
+          </button>
+        )}
       </header>
       <div className="detail-img-wrap">
         <RecipeImage image={recipe.image} alt={recipe.title} className="detail-img" />
@@ -55,6 +69,13 @@ export default function RecipeDetailView({ recipe, onBack }: RecipeDetailViewPro
                 ))}
             </ol>
           </section>
+        )}
+
+        {recipe.recipeSteps.length > 0 && (
+          <button className="cook-mode-btn" onClick={() => setCooking(true)}>
+            <CookIcon />
+            {t('cookMode')}
+          </button>
         )}
       </div>
     </>
