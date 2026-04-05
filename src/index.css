@@ -69,11 +69,14 @@
 }
 
 #root {
-  max-width: 480px;
+  max-width: 768px;
   margin: 0 auto;
   min-height: 100svh;
   box-sizing: border-box;
-  border-inline: 1px solid var(--border);
+
+  @media (min-width: 769px) {
+    border-inline: 1px solid var(--border);
+  }
 }
 
 body {
