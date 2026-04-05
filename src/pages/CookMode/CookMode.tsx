@@ -20,7 +20,6 @@ export default function CookMode({ recipe, onClose, onDone }: CookModeProps) {
 
   const isIngredientsPage = current === -1
   const isLastStep = current >= steps.length - 1
-  const totalPages = steps.length + 1
 
   return (
     <div className="cook-mode">
