@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react'
 import type { SortField, SortOption } from '../api'
 import { t } from '../i18n'
 import RecipeImage from '../components/RecipeImage'
+import usePullToRefresh from '../usePullToRefresh'
 import type { Recipe } from '../types'
 
 const SORT_OPTIONS: { field: SortField; label: () => string }[] = [
@@ -18,11 +19,13 @@ interface RecipeListProps {
   onQueryChange: (query: string) => void
   onSortChange: (sort: SortOption) => void
   onSelect: (id: number) => void
+  onRefresh: () => void
 }
 
-export default function RecipeList({ recipes, loading, query, sort, onQueryChange, onSortChange, onSelect }: RecipeListProps) {
+export default function RecipeList({ recipes, loading, query, sort, onQueryChange, onSortChange, onSelect, onRefresh }: RecipeListProps) {
   const [sortOpen, setSortOpen] = useState(false)
   const sortRef = useRef<HTMLDivElement>(null)
+  const { scrollRef, pullIndicator, touchHandlers } = usePullToRefresh(onRefresh)
 
   useEffect(() => {
     if (!sortOpen) return
@@ -49,8 +52,7 @@ export default function RecipeList({ recipes, loading, query, sort, onQueryChang
   }
 
   return (
-    <>
-      <div className="sticky-header-wrap">
+    <div className="recipe-list-page">
       <header className="app-header">
         <h1>{t('recipes')}</h1>
         <div className="search-row">
@@ -91,24 +93,26 @@ export default function RecipeList({ recipes, loading, query, sort, onQueryChang
         </div>
       </header>
       {loading && <div className="loading-bar" />}
+      <div className="recipe-list-scroll" ref={scrollRef} {...touchHandlers}>
+        {pullIndicator}
+        {!loading && recipes.length === 0 && (
+          <p className="recipe-empty">{t('noResults')}</p>
+        )}
+        <ul className="recipe-list">
+          {recipes.map((recipe) => (
+            <li key={recipe.id} className="recipe-card" onClick={() => onSelect(recipe.id)}>
+              <div className="recipe-img-wrap">
+                <RecipeImage src={recipe.image?.path ?? null} alt={recipe.title} className="recipe-img" />
+                <span className="recipe-category">{recipe.category.name}</span>
+              </div>
+              <div className="recipe-info">
+                <h2>{recipe.title}</h2>
+                <p>🔪 {recipe.preparationTime} {t('min')} · 🔥 {recipe.cookingTime} {t('min')} · 🍽️ {recipe.servings} {t('portions')}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-      {!loading && recipes.length === 0 && (
-        <p className="recipe-empty">{t('noResults')}</p>
-      )}
-      <ul className="recipe-list">
-        {recipes.map((recipe) => (
-          <li key={recipe.id} className="recipe-card" onClick={() => onSelect(recipe.id)}>
-            <div className="recipe-img-wrap">
-              <RecipeImage src={recipe.image?.path ?? null} alt={recipe.title} className="recipe-img" />
-              <span className="recipe-category">{recipe.category.name}</span>
-            </div>
-            <div className="recipe-info">
-              <h2>{recipe.title}</h2>
-              <p>🔪 {recipe.preparationTime} {t('min')} · 🔥 {recipe.cookingTime} {t('min')} · 🍽️ {recipe.servings} {t('portions')}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </>
+    </div>
   )
 }

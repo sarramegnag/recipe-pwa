@@ -30,23 +30,34 @@ function App() {
     localStorage.setItem('theme', theme)
   }, [theme])
 
-  useEffect(() => {
+  const loadRecipes = useCallback(() => {
     setLoading(true)
-    const timeout = setTimeout(() => {
-      fetchRecipes(query || undefined, sort)
-        .then((data) => setRecipes(data))
-        .finally(() => setLoading(false))
-    }, query ? 300 : 0)
-    return () => clearTimeout(timeout)
+    return fetchRecipes(query || undefined, sort)
+      .then((data) => setRecipes(data))
+      .finally(() => setLoading(false))
   }, [query, sort])
+
+  useEffect(() => {
+    const timeout = setTimeout(() => loadRecipes(), query ? 300 : 0)
+    return () => clearTimeout(timeout)
+  }, [loadRecipes])
 
   const openRecipe = useCallback((id: number) => {
     const preview = recipes.find((r) => r.id === id)
     if (preview) setSelectedPreview(preview)
+    setSelectedRecipe(null)
     history.pushState({ recipeId: id }, '')
     fetchRecipe(id)
       .then((data) => setSelectedRecipe(data))
   }, [recipes])
+
+  const refreshRecipe = useCallback(() => {
+    const id = selectedRecipe?.id ?? selectedPreview?.id
+    if (!id) return
+    setSelectedRecipe(null)
+    fetchRecipe(id)
+      .then((data) => setSelectedRecipe(data))
+  }, [selectedRecipe, selectedPreview])
 
   const closeRecipe = useCallback(() => {
     history.back()
@@ -67,7 +78,7 @@ function App() {
 
   let content
   if (displayRecipe) {
-    content = <RecipeDetailView recipe={displayRecipe} loading={!selectedRecipe} onBack={closeRecipe} />
+    content = <RecipeDetailView recipe={displayRecipe} loading={!selectedRecipe} onBack={closeRecipe} onRefresh={refreshRecipe} />
   } else {
     content = (
       <RecipeList
@@ -78,6 +89,7 @@ function App() {
         onQueryChange={setQuery}
         onSortChange={setSort}
         onSelect={openRecipe}
+        onRefresh={loadRecipes}
       />
     )
   }

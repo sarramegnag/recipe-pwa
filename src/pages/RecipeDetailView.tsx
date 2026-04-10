@@ -4,17 +4,20 @@ import CookIcon from '../components/CookIcon'
 import CookMode from './CookMode'
 import { t } from '../i18n'
 import RecipeImage from '../components/RecipeImage'
+import usePullToRefresh from '../usePullToRefresh'
 import type { RecipeDetail } from '../types'
 
 interface RecipeDetailViewProps {
   recipe: RecipeDetail
   loading?: boolean
   onBack: () => void
+  onRefresh: () => void
 }
 
-export default function RecipeDetailView({ recipe, loading, onBack }: RecipeDetailViewProps) {
+export default function RecipeDetailView({ recipe, loading, onBack, onRefresh }: RecipeDetailViewProps) {
   const [cooking, setCooking] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
+  const { scrollRef, pullIndicator, touchHandlers } = usePullToRefresh(onRefresh)
 
   const handleDone = useCallback(() => {
     setCooking(false)
@@ -26,7 +29,7 @@ export default function RecipeDetailView({ recipe, loading, onBack }: RecipeDeta
   }
 
   return (
-    <>
+    <div className="detail-page">
       {showConfetti && <Confetti onDone={() => setShowConfetti(false)} />}
       <div className="sticky-header-wrap">
         <header className="detail-header">
@@ -39,7 +42,9 @@ export default function RecipeDetailView({ recipe, loading, onBack }: RecipeDeta
         </header>
         {loading && <div className="loading-bar" />}
       </div>
-      <div className="detail-img-wrap">
+      <div className="detail-scroll" ref={scrollRef} {...touchHandlers}>
+        {pullIndicator}
+        <div className="detail-img-wrap">
         <RecipeImage src={recipe.image?.path ?? null} alt={recipe.title} className="detail-img" />
         <span className="recipe-category">{recipe.category.name}</span>
       </div>
@@ -91,7 +96,8 @@ export default function RecipeDetailView({ recipe, loading, onBack }: RecipeDeta
             )}
           </>
         )}
+        </div>
       </div>
-    </>
+    </div>
   )
 }
