@@ -12,6 +12,9 @@ declare const __COMMIT_HASH__: string
 function App() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
   const [query, setQuery] = useState('')
   const [selectedRecipe, setSelectedRecipe] = useState<RecipeDetail | null>(null)
   const [selectedPreview, setSelectedPreview] = useState<Recipe | null>(null)
@@ -32,10 +35,31 @@ function App() {
 
   const loadRecipes = useCallback(() => {
     setLoading(true)
-    return fetchRecipes(query || undefined, sort)
-      .then((data) => setRecipes(data))
+    setPage(1)
+    setHasMore(true)
+    return fetchRecipes(query || undefined, sort, 1)
+      .then((data) => {
+        setRecipes(data)
+        if (data.length === 0) setHasMore(false)
+      })
       .finally(() => setLoading(false))
   }, [query, sort])
+
+  const loadMore = useCallback(() => {
+    if (loadingMore || !hasMore) return
+    const nextPage = page + 1
+    setLoadingMore(true)
+    fetchRecipes(query || undefined, sort, nextPage)
+      .then((data) => {
+        if (data.length === 0) {
+          setHasMore(false)
+        } else {
+          setRecipes((prev) => [...prev, ...data])
+          setPage(nextPage)
+        }
+      })
+      .finally(() => setLoadingMore(false))
+  }, [loadingMore, hasMore, page, query, sort])
 
   useEffect(() => {
     const timeout = setTimeout(() => loadRecipes(), query ? 300 : 0)
@@ -84,12 +108,15 @@ function App() {
       <RecipeList
         recipes={recipes}
         loading={loading}
+        loadingMore={loadingMore}
+        hasMore={hasMore}
         query={query}
         sort={sort}
         onQueryChange={setQuery}
         onSortChange={setSort}
         onSelect={openRecipe}
         onRefresh={loadRecipes}
+        onLoadMore={loadMore}
       />
     )
   }

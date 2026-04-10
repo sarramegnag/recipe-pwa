@@ -6,8 +6,9 @@ export type SortField = 'title' | 'totalTime' | 'createdAt'
 export type SortDirection = 'asc' | 'desc'
 export type SortOption = { field: SortField; direction: SortDirection } | null
 
-export function fetchRecipes(title?: string, sort?: SortOption): Promise<Recipe[]> {
+export function fetchRecipes(title?: string, sort?: SortOption, page = 1): Promise<Recipe[]> {
   const url = new URL(`${API_URL}/api/recipes`)
+  url.searchParams.set('page', String(page))
   if (title) {
     url.searchParams.set('search', title)
   }

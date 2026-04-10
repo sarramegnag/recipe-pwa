@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react'
 import type { SortField, SortOption } from '../api'
 import { t } from '../i18n'
 import RecipeImage from '../components/RecipeImage'
+import useInfiniteScroll from '../useInfiniteScroll'
 import usePullToRefresh from '../usePullToRefresh'
 import type { Recipe } from '../types'
 
@@ -14,18 +15,22 @@ const SORT_OPTIONS: { field: SortField; label: () => string }[] = [
 interface RecipeListProps {
   recipes: Recipe[]
   loading: boolean
+  loadingMore: boolean
+  hasMore: boolean
   query: string
   sort: SortOption
   onQueryChange: (query: string) => void
   onSortChange: (sort: SortOption) => void
   onSelect: (id: number) => void
   onRefresh: () => void
+  onLoadMore: () => void
 }
 
-export default function RecipeList({ recipes, loading, query, sort, onQueryChange, onSortChange, onSelect, onRefresh }: RecipeListProps) {
+export default function RecipeList({ recipes, loading, loadingMore, hasMore, query, sort, onQueryChange, onSortChange, onSelect, onRefresh, onLoadMore }: RecipeListProps) {
   const [sortOpen, setSortOpen] = useState(false)
   const sortRef = useRef<HTMLDivElement>(null)
   const { scrollRef, pullIndicator, touchHandlers } = usePullToRefresh(onRefresh)
+  const onScroll = useInfiniteScroll(scrollRef, onLoadMore, hasMore && !loading && !loadingMore)
 
   useEffect(() => {
     if (!sortOpen) return
@@ -93,7 +98,7 @@ export default function RecipeList({ recipes, loading, query, sort, onQueryChang
         </div>
       </header>
       {loading && <div className="loading-bar" />}
-      <div className="recipe-list-scroll" ref={scrollRef} {...touchHandlers}>
+      <div className="recipe-list-scroll" ref={scrollRef} {...touchHandlers} onScroll={onScroll}>
         {pullIndicator}
         {!loading && recipes.length === 0 && (
           <p className="recipe-empty">{t('noResults')}</p>
@@ -112,6 +117,21 @@ export default function RecipeList({ recipes, loading, query, sort, onQueryChang
             </li>
           ))}
         </ul>
+        {loadingMore && (
+          <div className="loading-more">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="loading-spinner">
+              <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+            </svg>
+          </div>
+        )}
+        {!loading && !hasMore && recipes.length > 0 && (
+          <div className="list-end">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+        )}
       </div>
     </div>
   )
